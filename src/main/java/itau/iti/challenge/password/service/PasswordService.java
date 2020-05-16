@@ -1,4 +1,4 @@
-package itau.iti.challenge.service;
+package itau.iti.challenge.password.service;
 
 public interface PasswordService {
 

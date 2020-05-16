@@ -1,4 +1,4 @@
-package itau.iti.challenge.service.impl;
+package itau.iti.challenge.password.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

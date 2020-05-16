@@ -1,6 +1,6 @@
-package itau.iti.challenge.service.impl;
+package itau.iti.challenge.password.service.impl;
 
-import itau.iti.challenge.service.PasswordService;
+import itau.iti.challenge.password.service.PasswordService;
 
 public class PasswordServiceImpl implements PasswordService {
 
