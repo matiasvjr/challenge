@@ -1,5 +1,6 @@
 package itau.iti.challenge.password.service.impl;
 
+import itau.iti.challenge.password.validation.impl.MinimumSizeValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PasswordServiceImplTest {
 
+    private static final int PASSWORD_MINIMUM_SIZE = 9;
+
     private PasswordServiceImpl passwordService;
 
     @BeforeEach
     void init() {
-        passwordService = new PasswordServiceImpl();
+        final MinimumSizeValidator minimumSizeValidator = new MinimumSizeValidator(PASSWORD_MINIMUM_SIZE);
+
+        passwordService = new PasswordServiceImpl(minimumSizeValidator);
     }
 
     @Test
