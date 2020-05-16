@@ -1,8 +1,14 @@
 package itau.iti.challenge.password.service.impl;
 
+import itau.iti.challenge.password.validation.Validator;
+import itau.iti.challenge.password.validation.impl.AtLeastOneValidator;
+import itau.iti.challenge.password.validation.impl.CompositeValidator;
 import itau.iti.challenge.password.validation.impl.MinimumSizeValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,14 +16,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PasswordServiceImplTest {
 
     private static final int PASSWORD_MINIMUM_SIZE = 9;
+    private static final String PASSWORD_DIGIT_ALPHABET = "0123456789";
+    private static final String PASSWORD_LOWER_CASE_ALPHABET = "abcdefghijklmnopqrstuvwxyzç";
+    private static final String PASSWORD_UPPER_CASE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÇ";
+    private static final String PASSWORD_SPECIAL_CHARACTERS_ALPHABET = "\"'!@#$%*()_-+`{}[]~^<>,.:;?/\\|";
 
     private PasswordServiceImpl passwordService;
 
     @BeforeEach
     void init() {
-        final MinimumSizeValidator minimumSizeValidator = new MinimumSizeValidator(PASSWORD_MINIMUM_SIZE);
+        final List<Validator> validators = Arrays.asList(
+                new MinimumSizeValidator(PASSWORD_MINIMUM_SIZE),
+                new AtLeastOneValidator(PASSWORD_DIGIT_ALPHABET),
+                new AtLeastOneValidator(PASSWORD_LOWER_CASE_ALPHABET),
+                new AtLeastOneValidator(PASSWORD_UPPER_CASE_ALPHABET),
+                new AtLeastOneValidator(PASSWORD_SPECIAL_CHARACTERS_ALPHABET)
+        );
 
-        passwordService = new PasswordServiceImpl(minimumSizeValidator);
+        final Validator validator = new CompositeValidator(validators);
+
+        passwordService = new PasswordServiceImpl(validator);
     }
 
     @Test
