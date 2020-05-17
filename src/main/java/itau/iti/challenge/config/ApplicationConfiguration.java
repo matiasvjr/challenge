@@ -6,6 +6,7 @@ import itau.iti.challenge.password.validation.Validator;
 import itau.iti.challenge.password.validation.impl.AtLeastOneValidator;
 import itau.iti.challenge.password.validation.impl.CompositeValidator;
 import itau.iti.challenge.password.validation.impl.MinimumSizeValidator;
+import itau.iti.challenge.password.validation.impl.NonRepeatingValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,7 +35,8 @@ public class ApplicationConfiguration {
                 new AtLeastOneValidator(PASSWORD_DIGIT_ALPHABET),
                 new AtLeastOneValidator(PASSWORD_LOWER_CASE_ALPHABET),
                 new AtLeastOneValidator(PASSWORD_UPPER_CASE_ALPHABET),
-                new AtLeastOneValidator(PASSWORD_SPECIAL_CHARACTERS_ALPHABET)
+                new AtLeastOneValidator(PASSWORD_SPECIAL_CHARACTERS_ALPHABET),
+                new NonRepeatingValidator()
         );
 
         return new CompositeValidator(validators);
