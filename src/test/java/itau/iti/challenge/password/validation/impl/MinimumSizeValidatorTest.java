@@ -16,22 +16,6 @@ class MinimumSizeValidatorTest {
     }
 
     @Test
-    void test_isValid_ShouldBeFalse_WhenSizeIsEmpty() {
-        final String password = "";
-        final boolean result = minimumSizeValidator.isValid(password);
-
-        assertFalse(result, "Should be false!");
-    }
-
-    @Test
-    void test_isValid_ShouldBeFalse_WhenSizeIsLowerThan9() {
-        final String password = "AbTp9!fo";
-        final boolean result = minimumSizeValidator.isValid(password);
-
-        assertFalse(result, "Should be false!");
-    }
-
-    @Test
     void test_isValid_ShouldBeTrue_WhenSizeIs9() {
         final String password = "AbTp9!fok";
         final boolean result = minimumSizeValidator.isValid(password);
@@ -45,5 +29,29 @@ class MinimumSizeValidatorTest {
         final boolean result = minimumSizeValidator.isValid(password);
 
         assertTrue(result, "Should be true!");
+    }
+
+    @Test
+    void test_isValid_ShouldBeFalse_WhenNull() {
+        final String password = null;
+        final boolean result = minimumSizeValidator.isValid(password);
+
+        assertFalse(result, "Should be false!");
+    }
+
+    @Test
+    void test_isValid_ShouldBeFalse_WhenEmpty() {
+        final String password = "";
+        final boolean result = minimumSizeValidator.isValid(password);
+
+        assertFalse(result, "Should be false!");
+    }
+
+    @Test
+    void test_isValid_ShouldBeFalse_WhenSizeIsLowerThan9() {
+        final String password = "AbTp9!fo";
+        final boolean result = minimumSizeValidator.isValid(password);
+
+        assertFalse(result, "Should be false!");
     }
 }

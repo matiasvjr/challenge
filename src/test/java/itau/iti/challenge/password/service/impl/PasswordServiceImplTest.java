@@ -47,6 +47,22 @@ class PasswordServiceImplTest {
     }
 
     @Test
+    void test_isValid_ShouldBeFalse_WhenNull() {
+        final String password = null;
+        final boolean result = passwordService.isValid(password);
+
+        assertFalse(result, "Should be false!");
+    }
+
+    @Test
+    void test_isValid_ShouldBeFalse_WhenEmpty() {
+        final String password = "";
+        final boolean result = passwordService.isValid(password);
+
+        assertFalse(result, "Should be false!");
+    }
+
+    @Test
     void test_isValid_ShouldBeFalse_WhenShorterThan9Characters() {
         final String password = "AbTp9!fo";
         final boolean result = passwordService.isValid(password);
