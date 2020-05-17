@@ -4,6 +4,7 @@ import itau.iti.challenge.password.validation.Validator;
 import itau.iti.challenge.password.validation.impl.AtLeastOneValidator;
 import itau.iti.challenge.password.validation.impl.CompositeValidator;
 import itau.iti.challenge.password.validation.impl.MinimumSizeValidator;
+import itau.iti.challenge.password.validation.impl.NonRepeatingValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,8 @@ class PasswordServiceImplTest {
                 new AtLeastOneValidator(PASSWORD_DIGIT_ALPHABET),
                 new AtLeastOneValidator(PASSWORD_LOWER_CASE_ALPHABET),
                 new AtLeastOneValidator(PASSWORD_UPPER_CASE_ALPHABET),
-                new AtLeastOneValidator(PASSWORD_SPECIAL_CHARACTERS_ALPHABET)
+                new AtLeastOneValidator(PASSWORD_SPECIAL_CHARACTERS_ALPHABET),
+                new NonRepeatingValidator()
         );
 
         final Validator validator = new CompositeValidator(validators);
@@ -97,6 +99,14 @@ class PasswordServiceImplTest {
     @Test
     void test_isValid_ShouldBeFalse_WhenThereIsNoSpecialCharacter() {
         final String password = "AbTp9Xfok";
+        final boolean result = passwordService.isValid(password);
+
+        assertFalse(result, "Should be false!");
+    }
+
+    @Test
+    void test_isValid_ShouldBeFalse_WhenThereIsRepeatingCharacters() {
+        final String password = "AbTp9!fokqq";
         final boolean result = passwordService.isValid(password);
 
         assertFalse(result, "Should be false!");
