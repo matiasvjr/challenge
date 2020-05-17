@@ -7,6 +7,7 @@ import itau.iti.challenge.password.validation.impl.AtLeastOneValidator;
 import itau.iti.challenge.password.validation.impl.CompositeValidator;
 import itau.iti.challenge.password.validation.impl.MinimumSizeValidator;
 import itau.iti.challenge.password.validation.impl.NonRepeatingValidator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,11 +17,20 @@ import java.util.List;
 @Configuration
 public class ApplicationConfiguration {
 
-    private static final int PASSWORD_MINIMUM_SIZE = 9;
-    private static final String PASSWORD_DIGIT_ALPHABET = "0123456789";
-    private static final String PASSWORD_LOWER_CASE_ALPHABET = "abcdefghijklmnopqrstuvwxyzç";
-    private static final String PASSWORD_UPPER_CASE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZÇ";
-    private static final String PASSWORD_SPECIAL_CHARACTERS_ALPHABET = "\"'!@#$%*()_-+`{}[]~^<>,.:;?/\\|";
+    @Value("${password.minimum.size}")
+    private int passwordMinimumSize;
+
+    @Value("${password.digit.alphabet}")
+    private String passwordDigitAlphabet;
+
+    @Value("${password.lower.case.alphabet}")
+    private String passwordLowerCaseAlphabet;
+
+    @Value("${password.upper.case.alphabet}")
+    private String passwordUpperCaseAlphabet;
+
+    @Value("${password.special.characters.alphabet}")
+    private String passwordSpecialCharactersAlphabet;
 
     @Bean
     public PasswordService passwordService() {
@@ -31,11 +41,11 @@ public class ApplicationConfiguration {
 
     private Validator buildValidator() {
         final List<Validator> validators = Arrays.asList(
-                new MinimumSizeValidator(PASSWORD_MINIMUM_SIZE),
-                new AtLeastOneValidator(PASSWORD_DIGIT_ALPHABET),
-                new AtLeastOneValidator(PASSWORD_LOWER_CASE_ALPHABET),
-                new AtLeastOneValidator(PASSWORD_UPPER_CASE_ALPHABET),
-                new AtLeastOneValidator(PASSWORD_SPECIAL_CHARACTERS_ALPHABET),
+                new MinimumSizeValidator(passwordMinimumSize),
+                new AtLeastOneValidator(passwordDigitAlphabet),
+                new AtLeastOneValidator(passwordLowerCaseAlphabet),
+                new AtLeastOneValidator(passwordUpperCaseAlphabet),
+                new AtLeastOneValidator(passwordSpecialCharactersAlphabet),
                 new NonRepeatingValidator()
         );
 
