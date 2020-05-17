@@ -11,7 +11,8 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw test package
+RUN ./mvnw package
+RUN ./mvnw verify -Pintegration-tests
 
 
 FROM openjdk:8-jre-alpine as release
