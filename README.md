@@ -67,7 +67,7 @@ curl -i -X POST "http://localhost:8080/password/validate" # status 400
 
 # Decisões técnicas de design
 
-A aplicação foi desenvolvida de maneira que seu código possa ser facilmente compreendido e alterado afim de suportar novas funcionalidades.
+A aplicação foi desenvolvida de maneira que seu código possa ser facilmente compreendido e alterado a fim de suportar novas funcionalidades.
 
 ## Lógica do validador de senha:
 A interface **Validator** possui um método **isValid(*password*)** que retorna ***true/false*** indicando se uma senha é válida.\
@@ -81,7 +81,7 @@ Nesse caso foram usadas diferentes instâncias do mesmo validador apenas modific
 Inicialmente considerei a possibilidade da utilização de expressões regulares para a validação da senha.
 Porém a idéia foi descartada pois geralmente regex são difíceis de entender e isso acabaria prejudicando a facilidade de manutenção no futuro.
 
-Utilizando esse modelo, a validação de senha fica simples de entender e fácil de se extender.
+Utilizando esse modelo, a validação de senha fica simples de entender e fácil de se estender.
 Surgindo uma nova regra de validação, bastaria apenas a criação de uma nova implementação da interface.
 
 As regras de validação são colocadas juntas na classe **ApplicationConfiguration** através do **CompositeValidator**.
